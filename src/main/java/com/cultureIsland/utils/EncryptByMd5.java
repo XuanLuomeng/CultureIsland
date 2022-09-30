@@ -21,6 +21,12 @@ public class EncryptByMd5 {
         this.simpleHash = new SimpleHash("MD5",password,salt,5);
     }
 
+    public EncryptByMd5(String password,String salt) {
+        this.password = password;
+        this.salt = salt;
+        this.simpleHash = new SimpleHash("MD5",password,salt,5);
+    }
+
     public String getSalt(){
         return salt;
     }
