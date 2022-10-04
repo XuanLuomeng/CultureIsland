@@ -4,6 +4,7 @@ import com.cultureIsland.pojo.User;
 import com.cultureIsland.service.UserService;
 import com.cultureIsland.service.impl.UserServiceImpl;
 import com.cultureIsland.utils.InfoResponse;
+import com.cultureIsland.utils.RandomName;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,23 +20,24 @@ public class RegistUserServlet extends HttpServlet {
         User user = new User();
         user.setUserId(req.getParameter("userId"));
         user.setPassword(req.getParameter("password"));
-        user.setUserName(req.getParameter("userName"));
-        user.setSex(req.getParameter("sex"));
-        user.setBirthday("birthday");
-        user.setTelephone("telephone");
-        user.setEmail("email");
+        String userName = req.getParameter("userName");
+        user.setUserName(userName);
+        if (userName == null || userName.equals("")) {
+            RandomName randomName = new RandomName();
+            user.setUserName(String.valueOf(randomName));
+        }
         UserService userService = new UserServiceImpl();
         boolean exitUser = userService.isExistUser(user.getUserId());
-        if(exitUser){
-            new InfoResponse(resp,false,"用户已存在！");
-        }else {
+        if (exitUser) {
+            new InfoResponse(resp, false, "用户已存在！");
+        } else {
             userService.insertUser(user);
-            new InfoResponse(resp,true,"注册成功！");
+            new InfoResponse(resp, true, "注册成功！");
         }
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.doPost(req,resp);
+        this.doPost(req, resp);
     }
 }

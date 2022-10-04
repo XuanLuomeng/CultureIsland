@@ -3,9 +3,12 @@ import com.cultureIsland.pojo.User;
 import com.cultureIsland.service.UserService;
 import com.cultureIsland.service.impl.UserServiceImpl;
 import com.cultureIsland.utils.EncryptByMd5;
+import com.cultureIsland.utils.RandomName;
 import com.cultureIsland.utils.SqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
+
+import java.io.IOException;
 
 public class testUserMapper {
     @Test
@@ -49,5 +52,12 @@ public class testUserMapper {
         UserService userService = new UserServiceImpl();
         boolean b = userService.checkPassword("12345678", "1234567");
         System.out.println(b);
+    }
+
+    @Test
+    public void testRandomName() throws IOException {
+        RandomName randomName = new RandomName();
+        String name = randomName.getName();
+        System.out.println(name);
     }
 }
