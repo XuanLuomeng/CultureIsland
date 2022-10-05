@@ -19,7 +19,7 @@ public class ArticleServiceImpl implements ArticleService {
         com.github.pagehelper.Page<Object> pageUtil = PageHelper.startPage(pageNum, 5);
         List<Article> allArticle = mapper.getAllArticle(str);
         PageInfo<Article> pageInfo = new PageInfo<>(allArticle, 8);
-        Page page = new Page();
+        Page<Article> page = new Page<>();
         page.setTotalCount((int) pageInfo.getTotal());
         page.setTotalPage(pageInfo.getPages());
         page.setCurrentPage(pageNum);
@@ -42,7 +42,7 @@ public class ArticleServiceImpl implements ArticleService {
         com.github.pagehelper.Page<Object> pageUtil = PageHelper.startPage(pageNum, 5);
         List<Article> userArticle = mapper.getUserArticle(str, uid);
         PageInfo<Article> pageInfo = new PageInfo<>(userArticle, 8);
-        Page page = new Page();
+        Page<Article> page = new Page<>();
         page.setTotalCount((int) pageInfo.getTotal());
         page.setTotalPage(pageInfo.getPages());
         page.setCurrentPage(pageNum);

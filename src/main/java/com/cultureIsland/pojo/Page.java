@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class Page {
+public class Page<T> {
     /**
      * totalCount:总文章数
      * totalPage:总页码
@@ -29,5 +29,5 @@ public class Page {
     private boolean isHasNextPage;
     private int navigatePages;
     private int[] navigatePageNums;
-    private List<Article> list;
+    private List<T> list;
 }

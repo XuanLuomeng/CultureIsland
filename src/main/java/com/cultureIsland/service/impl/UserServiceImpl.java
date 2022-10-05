@@ -13,9 +13,9 @@ public class UserServiceImpl implements UserService {
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
         User user = mapper.selectUserByUserId(userId);
-        if(user!=null){
+        if (user != null) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
@@ -36,15 +36,23 @@ public class UserServiceImpl implements UserService {
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
         User user = mapper.selectUserByUserId(userId);
-        if(user!=null) {
-            EncryptByMd5 encrypt = new EncryptByMd5(password,user.getSalt());
-            if(encrypt.getSimpleHash().equals(user.getPassword())) {
+        if (user != null) {
+            EncryptByMd5 encrypt = new EncryptByMd5(password, user.getSalt());
+            if (encrypt.getSimpleHash().equals(user.getPassword())) {
                 return true;
-            }else {
+            } else {
                 return false;
             }
-        }else {
+        } else {
             return false;
         }
+    }
+
+    @Override
+    public int getUidByUserId(String userId) {
+        SqlSession sqlSession = SqlSessionUtil.getSqlSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        int uid = mapper.selectUidByUserId(userId);
+        return uid;
     }
 }

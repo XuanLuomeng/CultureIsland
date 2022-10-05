@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 public interface UserMapper {
     /**
      * 通过用户账号查询用户
+     *
      * @param userId
      * @return
      */
@@ -14,5 +15,12 @@ public interface UserMapper {
     /**
      * 添加用户
      */
-    void insertUser(@Param("user") User user);
+    void insertUser(User user);
+
+    /**
+     * 通过用户账号获取uid
+     * @param userId
+     * @return
+     */
+    int selectUidByUserId(@Param("userId") String userId);
 }

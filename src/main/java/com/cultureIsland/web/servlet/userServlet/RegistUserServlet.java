@@ -1,4 +1,4 @@
-package com.cultureIsland.web.servlet;
+package com.cultureIsland.web.servlet.userServlet;
 
 import com.cultureIsland.pojo.User;
 import com.cultureIsland.service.UserService;
@@ -13,14 +13,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * 注册
+ */
 @WebServlet("/registUserServlet")
 public class RegistUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         User user = new User();
-        user.setUserId(req.getParameter("userId"));
-        user.setPassword(req.getParameter("password"));
-        String userName = req.getParameter("userName");
+        user.setUserId(req.getParameter("register_userid"));
+        user.setPassword(req.getParameter("register_password"));
+        String userName = req.getParameter("username");
         user.setUserName(userName);
         if (userName == null || userName.equals("")) {
             RandomName randomName = new RandomName();
