@@ -13,18 +13,18 @@
     </resultMap>
     <select id="getCommentByAid" resultMap="commentResultMap">
         select cid, ccontent, ctime, c_aid, c_uid, user_name
-        from t_comment,
-             t_user
+        from comment,
+             `user`
         where c_uid = id
           and c_aid = #{aid};
     </select>
     <insert id="insertCommentByUidAndAid">
-        insert into t_comment
+        insert into comment
         values (null, #{content}, #{date}, #{aid}, #{uid});
     </insert>
     <delete id="deleteCommentByCid">
         delete
-        from t_comment
+        from comment
         where cid = #{cid};
     </delete>
 </mapper>

@@ -5,43 +5,43 @@
 <mapper namespace="com.cultureIsland.mapper.ArticleMapper">
     <resultMap id="articleResultMap" type="Article">
         <id column="aid" property="aid"></id>
-        <result column="t_title" property="title"></result>
-        <result column="t_content" property="content"></result>
-        <result column="t_date" property="date"></result>
+        <result column="title" property="title"></result>
+        <result column="content" property="content"></result>
+        <result column="date" property="date"></result>
         <result column="id" property="uid"></result>
         <result column="user_name" property="username"></result>
     </resultMap>
     <select id="getAllArticle" resultMap="articleResultMap">
-        select aid, t_title, t_content, t_data, id, user_name
-        from t_article,
-        t_user
-        where u_id = id
+        select aid, title, content, data, id, user_name
+        from article,
+        `user`
+        where a_uid = id
         <if test="str != null and str != ''">
-            and t_title like #{str}
+            and title like #{str}
         </if>;
     </select>
     <select id="getUserArticle" resultMap="articleResultMap">
-        select aid, t_title, t_content, t_data, id, user_name
-        from t_article,
-        t_user
-        where u_id = id and u_id = #{uid}
+        select aid, title, content, `data`, id, user_name
+        from article,
+        `user`
+        where a_uid = id and a_uid = #{uid}
         <if test="str != null and str != ''">
-            and t_title like #{str}
+            and title like #{str}
         </if>;
     </select>
     <insert id="insertArticle">
-        insert into t_article
+        insert into article
         values (null, #{article.title}, #{article.content}, #{article.date}, #{article.uid});
     </insert>
     <delete id="deleteArticleByAid">
         delete
-        from t_article
+        from article
         where aid = #{aid};
     </delete>
     <update id="updateArticle">
-        update t_article
-        set t_title   = #{article.title},
-            t_content = #{article.content}
+        update article
+        set title   = #{article.title},
+            content = #{article.content}
         where aid = #{article.aid};
     </update>
 </mapper>

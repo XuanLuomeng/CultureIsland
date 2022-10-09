@@ -7,6 +7,23 @@
         <element id="directory" name="classes">
           <element id="module-output" name="CultureIsland" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.mybatis:mybatis:3.5.7" />
+          <element id="library" level="project" name="Maven: log4j:log4j:1.2.17" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.21" />
+          <element id="library" level="project" name="Maven: com.github.pagehelper:pagehelper:5.2.0" />
+          <element id="library" level="project" name="Maven: com.github.jsqlparser:jsqlparser:3.2" />
+          <element id="library" level="project" name="Maven: org.apache.shiro:shiro-cache:1.8.0" />
+          <element id="library" level="project" name="Maven: org.apache.shiro:shiro-config-core:1.8.0" />
+          <element id="library" level="project" name="Maven: org.apache.shiro:shiro-config-ogdl:1.8.0" />
+          <element id="library" level="project" name="Maven: org.apache.shiro:shiro-core:1.8.0" />
+          <element id="library" level="project" name="Maven: org.apache.shiro:shiro-crypto-cipher:1.8.0" />
+          <element id="library" level="project" name="Maven: org.apache.shiro:shiro-crypto-core:1.8.0" />
+          <element id="library" level="project" name="Maven: org.apache.shiro:shiro-crypto-hash:1.8.0" />
+          <element id="library" level="project" name="Maven: org.apache.shiro:shiro-event:1.8.0" />
+          <element id="library" level="project" name="Maven: org.apache.shiro:shiro-lang:1.8.0" />
+          <element id="library" level="project" name="Maven: com.github.penggle:kaptcha:2.3.2" />
+        </element>
       </element>
     </root>
   </artifact>

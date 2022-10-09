@@ -22,7 +22,7 @@ public class testUserMapper {
     @Test
     public void testUserIsExit(){
         UserServiceImpl userService = new UserServiceImpl();
-        boolean exitUser = userService.isExistUser("12334");
+        boolean exitUser = userService.isExistUser("12345678");
         System.out.println(exitUser);
     }
 
