@@ -25,9 +25,9 @@
         from article,
         `user`
         where a_uid = id and a_uid = #{uid}
-        <if test="str != null and str != ''">
+        <if test="str != null and str != '' and str != '%null%'">
             and title like #{str}
-        </if>;
+        </if>
     </select>
     <insert id="insertArticle">
         insert into article

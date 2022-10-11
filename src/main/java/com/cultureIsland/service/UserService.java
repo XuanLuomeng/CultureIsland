@@ -27,8 +27,15 @@ public interface UserService {
     boolean checkPassword(String userId, String password);
 
     /**
-     * 通过用户账号获取用户id
+     * 通过用户账号获取用户名
      *
+     * @param userId
+     * @return
+     */
+    String getUserNameByUserId(String userId);
+
+    /**
+     * 通过账号获取用户uid
      * @param userId
      * @return
      */

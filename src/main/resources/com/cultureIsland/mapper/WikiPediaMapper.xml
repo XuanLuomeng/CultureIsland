@@ -13,9 +13,9 @@
         select wid,wiki_title,wiki,wdate
         from wikipedia
         where 1 = 1
-        <if test="str != null and str != ''">
+        <if test="str != '%null%' and str != '' and str != null">
             and wiki_title like #{str}
-        </if>;
+        </if>
     </select>
     <insert id="insertWikiPedia">
         insert into wikipedia

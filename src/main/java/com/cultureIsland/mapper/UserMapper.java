@@ -18,9 +18,16 @@ public interface UserMapper {
     void insertUser(User user);
 
     /**
+     * 通过用户账号获取用户名
+     * @param userId
+     * @return
+     */
+    String selectUserNameByUserId(@Param("userId") String userId);
+
+    /**
      * 通过用户账号获取uid
      * @param userId
      * @return
      */
-    int selectUidByUserId(@Param("userId") String userId);
+    int selectUidByUserId(@Param("userId")String userId);
 }

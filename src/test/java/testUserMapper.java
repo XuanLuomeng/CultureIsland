@@ -8,7 +8,10 @@ import com.cultureIsland.utils.SqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class testUserMapper {
     @Test
@@ -56,8 +59,17 @@ public class testUserMapper {
 
     @Test
     public void testRandomName() throws IOException {
-        RandomName randomName = new RandomName();
+        RandomName randomName = new RandomName("","");
         String name = randomName.getName();
-        System.out.println(name);
+        System.out.println(String.valueOf(name));
+    }
+
+    @Test
+    public void testGetUrl() throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader("web/html/register.html"));
+        String line;
+        while ((line = br.readLine()) != null) {
+            System.out.println(line);
+        }
     }
 }

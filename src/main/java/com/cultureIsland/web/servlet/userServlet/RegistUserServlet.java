@@ -6,6 +6,7 @@ import com.cultureIsland.service.impl.UserServiceImpl;
 import com.cultureIsland.utils.InfoResponse;
 import com.cultureIsland.utils.RandomName;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,14 +21,18 @@ import java.io.IOException;
 public class RegistUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        ServletContext servletContext = this.getServletContext();
+        String realPath = servletContext.getRealPath("/file/surname");
+        String realPath1 = servletContext.getRealPath("/file/name");
+
         User user = new User();
         user.setUserId(req.getParameter("register_userid"));
         user.setPassword(req.getParameter("register_password"));
-        String userName = req.getParameter("username");
+        String userName = req.getParameter("usernameMsg");
         user.setUserName(userName);
         if (userName == null || userName.equals("")) {
-            RandomName randomName = new RandomName();
-            user.setUserName(String.valueOf(randomName));
+            RandomName randomName = new RandomName(realPath,realPath1);
+            user.setUserName(randomName.getName());
         }
         UserService userService = new UserServiceImpl();
         boolean exitUser = userService.isExistUser(user.getUserId());

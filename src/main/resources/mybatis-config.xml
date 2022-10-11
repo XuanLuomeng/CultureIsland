@@ -32,7 +32,7 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="${jdbc.driver}"/>
-                <property name="url" value="${jdbc.url}"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/CultureIsland?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
                 <property name="username" value="${jdbc.username}"/>
                 <property name="password" value="${jdbc.password}"/>
             </dataSource>
