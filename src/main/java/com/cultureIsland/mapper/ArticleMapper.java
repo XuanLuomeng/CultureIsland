@@ -19,7 +19,7 @@ public interface ArticleMapper {
      * @param str
      * @return
      */
-    List<Article> getUserArticle(@Param("str") String str, @Param("uid") String uid);
+    List<Article> getUserArticle(@Param("str") String str, @Param("uid") int uid);
 
     /**
      * 文章发布
@@ -41,4 +41,9 @@ public interface ArticleMapper {
      * @param article
      */
     void updateArticle(Article article);
+
+    /**
+     * 通过文章aid增加浏览次数
+     */
+    void addViewCountByAid(@Param("aid") int aid);
 }

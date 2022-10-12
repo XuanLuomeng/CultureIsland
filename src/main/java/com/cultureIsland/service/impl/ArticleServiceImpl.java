@@ -36,7 +36,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Page getUserArticlePageInfo(int pageNum, String str, String uid) {
+    public Page getUserArticlePageInfo(int pageNum, String str, int uid) {
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
         ArticleMapper mapper = sqlSession.getMapper(ArticleMapper.class);
         com.github.pagehelper.Page<Object> pageUtil = PageHelper.startPage(pageNum, 5);
@@ -77,5 +77,12 @@ public class ArticleServiceImpl implements ArticleService {
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
         ArticleMapper mapper = sqlSession.getMapper(ArticleMapper.class);
         mapper.updateArticle(article);
+    }
+
+    @Override
+    public void addArticleViewCountByAid(int aid) {
+        SqlSession sqlSession = SqlSessionUtil.getSqlSession();
+        ArticleMapper mapper = sqlSession.getMapper(ArticleMapper.class);
+        mapper.addViewCountByAid(aid);
     }
 }
