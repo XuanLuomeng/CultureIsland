@@ -8,8 +8,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * 通过cid删除评论
+ */
 @WebServlet("/deleteComment")
-public class DeleteComment extends HttpServlet {
+public class DeleteCommentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         CommentService commentService = new CommentServiceImpl();

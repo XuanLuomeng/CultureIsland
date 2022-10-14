@@ -3,6 +3,8 @@ package com.cultureIsland.service;
 import com.cultureIsland.pojo.Comment;
 import com.cultureIsland.pojo.Page;
 
+import java.util.List;
+
 public interface CommentService {
     /**
      * 通过文章id分页获取评论
@@ -25,4 +27,11 @@ public interface CommentService {
      * @param cid
      */
     void deleteCommentByCid(int cid);
+
+    /**
+     * 通过用户id获取用户评论过的文章的aid列表
+     * @param uid
+     * @return
+     */
+    List<Integer> getUserCommentedArticleByUid(int uid);
 }

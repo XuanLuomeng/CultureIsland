@@ -1,6 +1,5 @@
 package com.cultureIsland.web.servlet.userServlet;
 
-import com.cultureIsland.pojo.User;
 import com.cultureIsland.service.UserService;
 import com.cultureIsland.service.impl.UserServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,10 +13,10 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
- * 从session里获取用户信息，如果没有则返回0.可用作检测是否已登录，查看个人信息，获取个人信息等供许多功能使用
+ * 从session里获取userId，如果没有则返回0，有则返回用户名称.用作检测是否已登录供许多功能使用
  */
-@WebServlet("/seeUserInfo")
-public class SeeUserInfo extends HttpServlet {
+@WebServlet("/isLogin")
+public class isLoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession httpSession = req.getSession();

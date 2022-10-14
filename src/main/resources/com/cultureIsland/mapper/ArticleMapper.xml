@@ -11,24 +11,38 @@
         <result column="view_count" property="viewCount"></result>
         <result column="id" property="uid"></result>
         <result column="user_name" property="username"></result>
+        <result column="photo" property="photo"></result>
     </resultMap>
+    <select id="getUserArticleByAid" resultMap="articleResultMap">
+        select aid,
+               title,
+               content,
+               `data`,
+               view_count,
+               id,
+               user_name,
+               photo
+        from article,
+             `user`
+        order by aid desc where a_uid = id and aid=#{aid};
+    </select>
     <select id="getAllArticle" resultMap="articleResultMap">
-        select aid, title, content, `data`,view_count, id, user_name
+        select aid, title, content, `data`,view_count, id, user_name,photo
         from article,
         `user`
-        where a_uid = id
-        <if test="str != null and str != '' and str != '%null%'">
-            and title like #{str}
+        order by aid desc where a_uid = id
+        <if test="str != null and str != ''">
+            and title like '%${str}%'
         </if>;
     </select>
     <select id="getUserArticle" resultMap="articleResultMap">
-        select aid, title, content, `data`,view_count, id, user_name
+        select aid, title, content, `data`,view_count, id, user_name,photo
         from article,
         `user`
-        where a_uid = id and a_uid = #{uid}
-        <if test="str != null and str != '' and str != '%null%'">
-            and title like #{str}
-        </if>
+        order by aid desc where a_uid = id and a_uid = #{uid}
+        <if test="str != null and str != ''">
+            and title like '%${str}%'
+        </if>;
     </select>
     <insert id="insertArticle">
         insert into article

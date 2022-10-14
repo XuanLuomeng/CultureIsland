@@ -12,10 +12,11 @@ public class User {
     private String birthday;
     private String telephone;
     private String email;
+    private String photo;
 
     public User(){}
 
-    public User(String userId, String password, String salt, String userName, String sex, String telephone, String birthday, String email) {
+    public User(String userId, String password, String salt, String userName, String sex, String telephone, String birthday, String email,String photo) {
         this.userId = userId;
         this.password = password;
         this.salt = salt;
@@ -24,6 +25,7 @@ public class User {
         this.telephone = telephone;
         this.birthday = birthday;
         this.email = email;
+        this.photo = photo;
     }
 
 }

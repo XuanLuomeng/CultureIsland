@@ -10,13 +10,19 @@
         <result column="c_aid" property="aid"></result>
         <result column="c_uid" property="uid"></result>
         <result column="user_name" property="userName"></result>
+        <result column="photo" property="photo"></result>
     </resultMap>
     <select id="getCommentByAid" resultMap="commentResultMap">
-        select cid, ccontent, ctime, c_aid, c_uid, user_name
+        select cid, ccontent, ctime, c_aid, c_uid, user_name, photo
         from comment,
              `user`
         where c_uid = id
           and c_aid = #{aid};
+    </select>
+    <select id="getCommentedAidByUid" resultType="int">
+        select distinct c_aid
+        from comment
+        where c_uid = #{uid};
     </select>
     <insert id="insertCommentByUidAndAid">
         insert into comment

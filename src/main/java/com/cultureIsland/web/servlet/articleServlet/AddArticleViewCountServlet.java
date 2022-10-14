@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * 添加文章的浏览次数
+ */
 @WebServlet("/addArticleViewCount")
 public class AddArticleViewCountServlet extends HttpServlet {
     @Override

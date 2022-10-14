@@ -49,4 +49,12 @@ public class CommentServiceImpl implements CommentService {
         CommentMapper mapper = sqlSession.getMapper(CommentMapper.class);
         mapper.deleteCommentByCid(cid);
     }
+
+    @Override
+    public List<Integer> getUserCommentedArticleByUid(int uid) {
+        SqlSession sqlSession = SqlSessionUtil.getSqlSession();
+        CommentMapper mapper = sqlSession.getMapper(CommentMapper.class);
+        List<Integer> commentedAidByUid = mapper.getCommentedAidByUid(uid);
+        return commentedAidByUid;
+    }
 }

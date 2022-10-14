@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * 通过aid删除文章
+ */
 @WebServlet("/deleteArticle")
 public class DeleteArticleServlet extends HttpServlet {
     @Override

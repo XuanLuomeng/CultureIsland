@@ -5,6 +5,9 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * 文章mapper
+ */
 public interface ArticleMapper {
     /**
      * 获取所有文章(包括模糊查询)
@@ -20,6 +23,14 @@ public interface ArticleMapper {
      * @return
      */
     List<Article> getUserArticle(@Param("str") String str, @Param("uid") int uid);
+
+    /**
+     * 通过aid获取文章内容
+     *
+     * @param aid
+     * @return
+     */
+    Article getUserArticleByAid(@Param("aid") int aid);
 
     /**
      * 文章发布

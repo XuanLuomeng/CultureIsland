@@ -12,9 +12,9 @@
     <select id="getAllWikiPedia" resultMap="WikiPediaResultMap">
         select wid,wiki_title,wiki,wdate
         from wikipedia
-        where 1 = 1
-        <if test="str != '%null%' and str != '' and str != null">
-            and wiki_title like #{str}
+        order by wid desc where 1 = 1
+        <if test="str != '' and str != null">
+            and wiki_title like '%${str}%'
         </if>
     </select>
     <insert id="insertWikiPedia">

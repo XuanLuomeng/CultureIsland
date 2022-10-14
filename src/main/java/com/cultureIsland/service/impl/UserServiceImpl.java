@@ -63,4 +63,37 @@ public class UserServiceImpl implements UserService {
         int uid = mapper.selectUidByUserId(userId);
         return uid;
     }
+
+    @Override
+    public User getUserAllInfoByUserId(String userId) {
+        SqlSession sqlSession = SqlSessionUtil.getSqlSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        User user = mapper.selectUserAllInfoByUserId(userId);
+        return user;
+    }
+
+    @Override
+    public boolean checkPasswordAndUpdate(String userId, String oldPassword, String newPassword) {
+        SqlSession sqlSession = SqlSessionUtil.getSqlSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        User user = mapper.selectUserByUserId(userId);
+        EncryptByMd5 encrypt = new EncryptByMd5(oldPassword, user.getSalt());
+        if (encrypt.getSimpleHash().equals(user.getPassword())) {
+            /**
+             * 重新加密,然后将新密码和新盐修改保存到数据库
+             */
+            EncryptByMd5 encrypt1 = new EncryptByMd5(newPassword);
+            mapper.updatePasswordAndSaltByUserId(userId, encrypt1.getSimpleHash(), encrypt1.getSalt());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public void updateUserInfoByUser(User user) {
+        SqlSession sqlSession = SqlSessionUtil.getSqlSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        mapper.updateUserInfo(user);
+    }
 }

@@ -1,10 +1,12 @@
-package com.cultureIsland.web.servlet.articleServlet;
+package com.cultureIsland.web.servlet.likeArticleServlet;
 
 import com.cultureIsland.pojo.Article;
 import com.cultureIsland.pojo.Page;
 import com.cultureIsland.service.ArticleService;
+import com.cultureIsland.service.LikeArticleService;
 import com.cultureIsland.service.UserService;
 import com.cultureIsland.service.impl.ArticleServiceImpl;
+import com.cultureIsland.service.impl.LikeArticleServiceImpl;
 import com.cultureIsland.service.impl.UserServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -16,20 +18,25 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
-@WebServlet("/UserArticle")
-public class GetUserArticleServlet extends HttpServlet {
+/**
+ * 获取个人点赞过的文章page信息
+ */
+@WebServlet("/userLikeArticle")
+public class UserLikeArticleServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         /**
-         * 获取请求参数
+         * 获取相关内容，判断分页页码，是否模糊查询……
          */
         String currentPageStr = req.getParameter("currentPage");
-        String title = req.getParameter("title");
-        HttpSession httpSession = req.getSession();
-        Object userId = httpSession.getAttribute("userId");
+        HttpSession session = req.getSession();
+        String userId = (String) session.getAttribute("userId");
+
         UserService userService = new UserServiceImpl();
-        int uid = userService.getUidByUserId((String) userId);
+        int uid = userService.getUidByUserId(userId);
 
         /**
          * 处理参数(防止空指针异常)
@@ -40,20 +47,39 @@ public class GetUserArticleServlet extends HttpServlet {
         } else {
             currentPage = 1;
         }
-        if (title == null || title.length() < 0) {
-            title = "";
-        }
 
         /**
-         * 查询Page对象
+         * 通过字符串分割获取点赞过的文章aid
          */
-        Page<Article> page = null;
+        LikeArticleService likeArticleService = new LikeArticleServiceImpl();
+        String likeArray = likeArticleService.getLikeArray(uid);
+        String[] likeList = likeArray.split(",");
+
+        /**
+         * 获取部分分页内容
+         */
+        int limitStart = (currentPage - 1) * 5;
+        int limitEnd = limitStart + 5 < likeList.length - 1 ? limitStart + 5 : likeList.length - 1;
+        Page<Article> page = new Page<>();
+        page.setTotalCount(likeList.length);
+        page.setPageSize(5);
+        page.setTotalPage(likeList.length % 5 == 0 ? likeList.length / 5 : likeList.length / 5 + 1);
         ArticleService articleService = new ArticleServiceImpl();
-        try {
-            page = articleService.getUserArticlePageInfo(currentPage, title, uid);
-        } catch (ParseException e) {
-            e.printStackTrace();
+        List<Article> articles = new ArrayList<>();
+
+        /**
+         * 获取相对页数的点赞过的文章
+         */
+        for (int i = limitStart; i < limitEnd; i++) {
+            Article article = null;
+            try {
+                article = articleService.getUserLikeOrCommentedArticleByAid(Integer.parseInt(likeList[i]));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            articles.add(article);
         }
+        page.setList(articles);
 
         /**
          * 将page序列化为json返回给客户端

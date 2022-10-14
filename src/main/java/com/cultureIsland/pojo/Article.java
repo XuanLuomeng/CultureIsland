@@ -11,13 +11,20 @@ public class Article {
      * date:发布日期
      * viewCount:浏览次数
      * userName:作者名
+     * photo:用户头像地址
+     * isLike:是否喜欢该篇文章（此功能只有在已登录的前提下才有效）
      * uid:作者id
+     * commentPage:评论分页
      */
     private int aid;
     private String title;
     private String content;
     private String date;
+    private String timeDiffer;
     private int viewCount;
     private String userName;
+    private String photo;
+    private boolean isLike;
     private int uid;
+    private Page<Comment> commentPage;
 }

@@ -23,7 +23,7 @@ public class GetWikiPageInfoServlet extends HttpServlet {
          * 获取请求参数
          */
         String currentPageStr = req.getParameter("currentPage");
-        String title = "%" + req.getParameter("title") + "%";
+        String title = req.getParameter("title");
 
         /**
          * 处理参数
@@ -33,6 +33,9 @@ public class GetWikiPageInfoServlet extends HttpServlet {
             currentPage = Integer.parseInt(currentPageStr);
         } else {
             currentPage = 1;
+        }
+        if (title == null || title.length() < 0) {
+            title = "";
         }
 
         /**

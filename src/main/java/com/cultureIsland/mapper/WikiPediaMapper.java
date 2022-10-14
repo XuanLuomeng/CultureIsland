@@ -5,6 +5,9 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * 百科mapper
+ */
 public interface WikiPediaMapper {
     /**
      * 获取所有百科(包括模糊查询)

@@ -1,4 +1,5 @@
 import com.cultureIsland.mapper.UserMapper;
+import com.cultureIsland.pojo.Article;
 import com.cultureIsland.pojo.User;
 import com.cultureIsland.service.UserService;
 import com.cultureIsland.service.impl.UserServiceImpl;
@@ -8,14 +9,17 @@ import com.cultureIsland.utils.SqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
+import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class testUserMapper {
     @Test
-    public void testSelectUser(){
+    public void testSelectUser() {
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
         User user = mapper.selectUserByUserId("1069619982");
@@ -23,35 +27,35 @@ public class testUserMapper {
     }
 
     @Test
-    public void testUserIsExit(){
+    public void testUserIsExit() {
         UserServiceImpl userService = new UserServiceImpl();
         boolean exitUser = userService.isExistUser("12345678");
         System.out.println(exitUser);
     }
 
     @Test
-    public void testInsertUser(){
+    public void testInsertUser() {
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
         EncryptByMd5 encrypt = new EncryptByMd5("7758258");
-        User user = new User("1234567", encrypt.getSimpleHash(), encrypt.getSalt(), "罗星",null,null,null,null);
+        User user = new User("1234567", encrypt.getSimpleHash(), encrypt.getSalt(), "罗星", null, null, null, null, null);
         mapper.insertUser(user);
     }
 
     @Test
-    public void testServiceInsert(){
-        User user = new User("12345678", "1234567", null, "田星",null,null,null,null);
+    public void testServiceInsert() {
+        User user = new User("12345678", "1234567", null, "田星", null, null, null, null, null);
         UserService userService = new UserServiceImpl();
         boolean exitUser = userService.isExistUser(user.getUserId());
-        if(exitUser){
+        if (exitUser) {
             System.out.println("用户已存在");
-        }else {
+        } else {
             userService.insertUser(user);
         }
     }
 
     @Test
-    public void testCheckUserIdAndPassword(){
+    public void testCheckUserIdAndPassword() {
         UserService userService = new UserServiceImpl();
         boolean b = userService.checkPassword("12345678", "1234567");
         System.out.println(b);
@@ -59,7 +63,7 @@ public class testUserMapper {
 
     @Test
     public void testRandomName() throws IOException {
-        RandomName randomName = new RandomName("","");
+        RandomName randomName = new RandomName("", "");
         String name = randomName.getName();
         System.out.println(String.valueOf(name));
     }

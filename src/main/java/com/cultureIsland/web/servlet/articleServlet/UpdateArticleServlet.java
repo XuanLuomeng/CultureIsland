@@ -16,11 +16,17 @@ import javax.servlet.http.HttpServletResponse;
 public class UpdateArticleServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
-        //设置参数
+        /**
+         * 获取修改内容
+         */
         Article article = new Article();
         article.setAid(Integer.parseInt(req.getParameter("aid")));
         article.setTitle(req.getParameter("title"));
         article.setContent(req.getParameter("content"));
+
+        /**
+         * 执行修改操作
+         */
         ArticleService articleService = new ArticleServiceImpl();
         articleService.updateArticle(article);
     }

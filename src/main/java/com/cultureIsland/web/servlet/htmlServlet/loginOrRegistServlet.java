@@ -6,17 +6,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
+import java.io.*;
 
-@WebServlet("/first")
-public class First extends HttpServlet {
+/**
+ * 模拟网址，解决直接访问html文件时的网址不美观以及网址过于固定不可改的问题
+ */
+@WebServlet("/login")
+public class loginOrRegistServlet extends HttpServlet {
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        this.doGet(req, resp);
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ServletContext servletContext = this.getServletContext();
-        String realPath = servletContext.getRealPath("/html/first.html");
+        String realPath = servletContext.getRealPath("/html/register.html");
         PrintWriter writer = resp.getWriter();
         InputStream in = new FileInputStream(realPath);
         byte[] bys = new byte[1024];
@@ -26,10 +31,5 @@ public class First extends HttpServlet {
         }
         in.close();
         writer.close();
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.doGet(req,resp);
     }
 }

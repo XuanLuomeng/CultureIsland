@@ -16,8 +16,11 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * 发表评论
+ */
 @WebServlet("/insertComment")
-public class InsertComment extends HttpServlet {
+public class InsertCommentServelt extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         /**
@@ -36,11 +39,18 @@ public class InsertComment extends HttpServlet {
         UserService userService = new UserServiceImpl();
         int uid = userService.getUidByUserId(userId);
 
+        /**
+         * 设置评论内容
+         */
         Comment comment = new Comment();
         comment.setContent(content);
         comment.setAid(aid);
         comment.setDate(simpleDateFormat.format(pushdate));
         comment.setUid(uid);
+
+        /**
+         * 保存入数据库
+         */
         CommentService commentService = new CommentServiceImpl();
         commentService.insertCommentByUidAndAid(comment);
     }

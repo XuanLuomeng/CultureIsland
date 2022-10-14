@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cultureIsland.mapper.LikeArticleMapper">
+    <select id="getLikeArrayOrIsLikeByUidAndAid" resultType="String">
+        select l_aid_array
+        from like_Article where l_uid=#{uid}
+        <if test="aid != null and aid != ''">
+            and l_aid_array like '%${aid}%'
+        </if>;
+    </select>
+    <update id="insertLikeArticleByUpdateLikeArray">
+        update like_Article set l_aid_array = #{likeArray} where l_uid = #{uid}
+    </update>
+</mapper>
