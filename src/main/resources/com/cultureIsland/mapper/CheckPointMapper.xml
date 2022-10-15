@@ -8,4 +8,18 @@
         <result column="cpnum" property="cpNum"></result>
         <result column="cp_uid" property="cpUid"></result>
     </resultMap>
+    <select id="getCpNumByUid" resultType="string">
+        select cpnum
+        from checkpoint
+        where cp_uid = #{uid};
+    </select>
+    <update id="updateCpNumByUid">
+        update checkpoint
+        set cpnum = #{cpNum}
+        where cp_uid = #{uid};
+    </update>
+    <insert id="insertCpNumByUid">
+        insert into checkpoint
+        values (null, "0,0,0,0,0", #{uid});
+    </insert>
 </mapper>

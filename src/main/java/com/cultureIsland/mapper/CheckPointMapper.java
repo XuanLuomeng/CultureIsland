@@ -1,9 +1,6 @@
 package com.cultureIsland.mapper;
 
-import com.cultureIsland.pojo.CheckPoint;
 import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
 
 /**
  * 闯关mapper
@@ -18,9 +15,17 @@ public interface CheckPointMapper {
     String getCpNumByUid(@Param("cpUid") int uid);
 
     /**
+     * 通过用户id编号修改闯关记录
      *
      * @param uid
      * @param cpNum
      */
-    void updateCpNumByUid(int uid, String cpNum);
+    void updateCpNumByUid(@Param("uid") int uid, @Param("cpNum") String cpNum);
+
+    /**
+     * 通过用户id编号添加闯关记录
+     *
+     * @param uid
+     */
+    void insertCpNumByUid(@Param("uid") int uid);
 }
