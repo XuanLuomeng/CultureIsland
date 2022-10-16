@@ -17,8 +17,12 @@ import java.io.IOException;
 public class ReceiveChatServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        /**
+         * 获取聊天室编号，再获取到相应的内容
+         */
+        String chatRoomNumber = req.getParameter("chatRoomNumber");
         ServletContext context = req.getServletContext();
-        String says = String.valueOf(context.getAttribute("says"));
+        String says = String.valueOf(context.getAttribute(chatRoomNumber + "says"));
 
         /**
          * 将says序列化为json返回给客户端
@@ -32,6 +36,6 @@ public class ReceiveChatServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.doGet(req,resp);
+        this.doGet(req, resp);
     }
 }

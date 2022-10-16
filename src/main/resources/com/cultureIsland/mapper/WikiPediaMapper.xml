@@ -12,10 +12,11 @@
     <select id="getAllWikiPedia" resultMap="WikiPediaResultMap">
         select wid,wiki_title,wiki,wdate
         from wikipedia
-        order by wid desc where 1 = 1
+        where 1 = 1
         <if test="str != '' and str != null">
             and wiki_title like '%${str}%'
         </if>
+        order by wid desc
     </select>
     <insert id="insertWikiPedia">
         insert into wikipedia
@@ -28,8 +29,8 @@
     </delete>
     <update id="updateWikiPedia">
         update wikipedia
-        set wiki_title   = #{wikiPedia.wikiTitle},
-            wiki = #{wikiPedia.wiki}
+        set wiki_title = #{wikiPedia.wikiTitle},
+            wiki       = #{wikiPedia.wiki}
         where wid = #{wikiPedia.wid};
     </update>
 </mapper>

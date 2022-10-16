@@ -51,35 +51,39 @@ public class UserLikeArticleServlet extends HttpServlet {
         /**
          * 通过字符串分割获取点赞过的文章aid
          */
+        Page<Article> page = new Page<>();
         LikeArticleService likeArticleService = new LikeArticleServiceImpl();
         String likeArray = likeArticleService.getLikeArray(uid);
-        String[] likeList = likeArray.split(",");
+        if (likeArray != null) {
+            String[] likeList = likeArray.split(",");
 
-        /**
-         * 获取部分分页内容
-         */
-        int limitStart = (currentPage - 1) * 5;
-        int limitEnd = limitStart + 5 < likeList.length - 1 ? limitStart + 5 : likeList.length - 1;
-        Page<Article> page = new Page<>();
-        page.setTotalCount(likeList.length);
-        page.setPageSize(5);
-        page.setTotalPage(likeList.length % 5 == 0 ? likeList.length / 5 : likeList.length / 5 + 1);
-        ArticleService articleService = new ArticleServiceImpl();
-        List<Article> articles = new ArrayList<>();
+            /**
+             * 获取部分分页内容
+             */
+            int limitStart = (currentPage - 1) * 5;
+            int limitEnd = limitStart + 5 < likeList.length - 1 ? limitStart + 5 : likeList.length - 1;
+            page.setTotalCount(likeList.length);
+            page.setPageSize(5);
+            page.setTotalPage(likeList.length % 5 == 0 ? likeList.length / 5 : likeList.length / 5 + 1);
+            ArticleService articleService = new ArticleServiceImpl();
+            List<Article> articles = new ArrayList<>();
 
-        /**
-         * 获取相对页数的点赞过的文章
-         */
-        for (int i = limitStart; i < limitEnd; i++) {
-            Article article = null;
-            try {
-                article = articleService.getUserLikeOrCommentedArticleByAid(Integer.parseInt(likeList[i]));
-            } catch (ParseException e) {
-                e.printStackTrace();
+            /**
+             * 获取相对页数的点赞过的文章
+             */
+            for (int i = limitStart; i < limitEnd; i++) {
+                Article article = null;
+                try {
+                    article = articleService.getUserLikeOrCommentedArticleByAid(Integer.parseInt(likeList[i]));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                articles.add(article);
             }
-            articles.add(article);
+            page.setList(articles);
+        }else {
+            page.setTotalCount(0);
         }
-        page.setList(articles);
 
         /**
          * 将page序列化为json返回给客户端

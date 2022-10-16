@@ -17,7 +17,8 @@
         from comment,
              `user`
         where c_uid = id
-          and c_aid = #{aid};
+          and c_aid = #{aid}
+        order by aid desc;
     </select>
     <select id="getCommentedAidByUid" resultType="int">
         select distinct c_aid

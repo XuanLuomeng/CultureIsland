@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * 用户数据保存
+ */
 @WebServlet("/updateCheckPointInfo")
 public class UpdateCheckPointServlet extends HttpServlet {
     @Override
@@ -33,11 +36,18 @@ public class UpdateCheckPointServlet extends HttpServlet {
         CheckPointService checkPointService = new CheckPointServiceImpl();
         String checkPointInfo = checkPointService.getCheckPointInfoByUid(uid);
         String[] cpNums = checkPointInfo.split(",");
-        cpNums[islandId] = cpNum;
-        for (int i = 0; i < cpNums.length - 1; i++) {
+        for (int i = 0; i < cpNums.length; i++) {
+            System.out.println(cpNums[i]);
+        }
+        cpNums[islandId - 1] = cpNum;
+        checkPointInfo = cpNums[0] + ",";
+        int len = cpNums.length - 1;
+        for (int i = 1; i < len; i++) {
             checkPointInfo += cpNums[i] + ",";
         }
-        checkPointInfo += cpNums[cpNums.length - 1];
+        if (len != 0) {
+            checkPointInfo += cpNums[cpNums.length - 1];
+        }
 
         checkPointService.updateCheckPointInfoByUid(uid, checkPointInfo);
     }

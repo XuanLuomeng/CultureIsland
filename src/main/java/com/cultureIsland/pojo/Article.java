@@ -9,6 +9,7 @@ public class Article {
      * title:标题
      * content:内容
      * date:发布日期
+     * timeDiffer:发布时间与目前的分钟时间差
      * viewCount:浏览次数
      * userName:作者名
      * photo:用户头像地址
@@ -19,6 +20,7 @@ public class Article {
     private int aid;
     private String title;
     private String content;
+    private String picture;
     private String date;
     private String timeDiffer;
     private int viewCount;

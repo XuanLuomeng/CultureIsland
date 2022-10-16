@@ -60,7 +60,11 @@ public class UserServiceImpl implements UserService {
     public int getUidByUserId(String userId) {
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-        int uid = mapper.selectUidByUserId(userId);
+        String uidStr = mapper.selectUidByUserId(userId);
+        int uid = 0;
+        if (uidStr != null) {
+            uid = Integer.parseInt(uidStr);
+        }
         return uid;
     }
 

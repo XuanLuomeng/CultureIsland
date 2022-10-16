@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * 游客保存
+ */
 @WebServlet("/visitorsSave")
 public class VisitorsSaveServlet extends HttpServlet {
     @Override
@@ -23,15 +26,19 @@ public class VisitorsSaveServlet extends HttpServlet {
         /**
          * 通过字符串分割和拼接修改闯关信息
          */
-        if (cpNumInfo.length() == 0 || cpNumInfo == null) {
+        if (cpNumInfo == null) {
             cpNumInfo = "0,0,0,0,0";
         }
         String[] cpNums = cpNumInfo.split(",");
-        cpNums[islandId] = cpNum;
-        for (int i = 0; i < cpNums.length - 1; i++) {
+        cpNums[islandId - 1] = cpNum;
+        cpNumInfo = cpNums[0] + ",";
+        int len = cpNums.length - 1;
+        for (int i = 1; i < len; i++) {
             cpNumInfo += cpNums[i] + ",";
         }
-        cpNumInfo += cpNums[cpNums.length - 1];
+        if (len != 0) {
+            cpNumInfo += cpNums[len];
+        }
 
         /**
          * 重新修改session中闯关信息

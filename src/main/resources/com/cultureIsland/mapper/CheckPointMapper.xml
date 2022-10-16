@@ -11,15 +11,15 @@
     <select id="getCpNumByUid" resultType="string">
         select cpnum
         from checkpoint
-        where cp_uid = #{uid};
+        where cp_uid = #{cpUid};
     </select>
     <update id="updateCpNumByUid">
         update checkpoint
         set cpnum = #{cpNum}
-        where cp_uid = #{uid};
+        where cp_uid = #{cpUid};
     </update>
     <insert id="insertCpNumByUid">
         insert into checkpoint
-        values (null, "0,0,0,0,0", #{uid});
+        values (null, "0,0,0,0,0", #{cpUid});
     </insert>
 </mapper>

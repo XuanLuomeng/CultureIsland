@@ -7,6 +7,7 @@
         <id column="aid" property="aid"></id>
         <result column="title" property="title"></result>
         <result column="content" property="content"></result>
+        <result column="picture" property="picture"></result>
         <result column="date" property="date"></result>
         <result column="view_count" property="viewCount"></result>
         <result column="id" property="uid"></result>
@@ -17,6 +18,7 @@
         select aid,
                title,
                content,
+               picture,
                `data`,
                view_count,
                id,
@@ -24,25 +26,28 @@
                photo
         from article,
              `user`
-        order by aid desc where a_uid = id and aid=#{aid};
+        where a_uid = id and aid=#{aid}
+        order by aid desc;
     </select>
     <select id="getAllArticle" resultMap="articleResultMap">
-        select aid, title, content, `data`,view_count, id, user_name,photo
+        select aid, title, content,picture, `data`,view_count, id, user_name,photo
         from article,
         `user`
-        order by aid desc where a_uid = id
+        where a_uid = id
         <if test="str != null and str != ''">
             and title like '%${str}%'
-        </if>;
+        </if>
+        order by aid desc;
     </select>
     <select id="getUserArticle" resultMap="articleResultMap">
-        select aid, title, content, `data`,view_count, id, user_name,photo
+        select aid, title, content,picture, `data`,view_count, id, user_name,photo
         from article,
         `user`
-        order by aid desc where a_uid = id and a_uid = #{uid}
+        where id = #{uid} and a_uid = #{uid}
         <if test="str != null and str != ''">
             and title like '%${str}%'
-        </if>;
+        </if>
+        order by aid desc;
     </select>
     <insert id="insertArticle">
         insert into article

@@ -9,8 +9,11 @@
 <html>
   <head>
     <title>$Title$</title>
+    <script>
+      window.location.href="/first";
+    </script>
   </head>
   <body>
-  $END$
+
   </body>
 </html>

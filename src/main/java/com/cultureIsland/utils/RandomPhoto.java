@@ -3,6 +3,7 @@ package com.cultureIsland.utils;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -13,7 +14,7 @@ public class RandomPhoto {
     private String photo;
     public RandomPhoto(String realPath) throws IOException {
         Random random = new Random();
-        List<String> list = null;
+        List<String> list = new ArrayList<>();
         BufferedReader br = new BufferedReader(new FileReader(realPath));
         String line = null;
         while ((line = br.readLine()) != null) {

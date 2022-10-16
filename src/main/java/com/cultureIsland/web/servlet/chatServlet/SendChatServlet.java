@@ -20,11 +20,12 @@ public class SendChatServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         /**
-         * 获取到存在cookie中的userid和前端提交的聊天内容text
+         * 获取到存在cookie中的userid和前端提交的聊天内容text以及聊天室编号
          */
         HttpSession httpSession = req.getSession();
         String userId = String.valueOf(httpSession.getAttribute("userId"));
         String text = req.getParameter("text");
+        String chatRoomNumber = req.getParameter("chatRoomNumber");
 
         /**
          * 前端传输的内容不为空的时候聊天内容才有效
@@ -41,11 +42,11 @@ public class SendChatServlet extends HttpServlet {
             ServletContext context = getServletContext();
             String says;
             if (context.getAttribute("says") != null) {
-                says = context.getAttribute("says") + say;
+                says = context.getAttribute(chatRoomNumber + "says") + say;
             } else {
                 says = say;
             }
-            context.setAttribute("says", says);
+            context.setAttribute(chatRoomNumber + "says", says);
         }
     }
 

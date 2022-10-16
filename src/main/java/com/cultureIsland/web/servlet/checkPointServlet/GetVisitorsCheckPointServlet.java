@@ -1,9 +1,5 @@
 package com.cultureIsland.web.servlet.checkPointServlet;
 
-import com.cultureIsland.service.CheckPointService;
-import com.cultureIsland.service.UserService;
-import com.cultureIsland.service.impl.CheckPointServiceImpl;
-import com.cultureIsland.service.impl.UserServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.ServletException;
@@ -15,27 +11,22 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
- * 获取到用户相关岛的任务点
+ * 获取游客闯关信息
  */
-@WebServlet("/getCheckPointInfo")
-public class GetCheckPointServlet extends HttpServlet {
+@WebServlet("/getVisitorsCheckPoint")
+public class GetVisitorsCheckPointServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         /**
-         * 获取到岛的编号以及定位到用户的id编号
+         * 获取相关信息
          */
         int islandId = Integer.parseInt(req.getParameter("islandId"));
         HttpSession session = req.getSession();
-        String userId = (String) session.getAttribute("userId");
-        UserService userService = new UserServiceImpl();
-        int uid = userService.getUidByUserId(userId);
-
-        /**
-         * 通过uid获取到闯关相关的字符串，再通过字符串分割获取到相应分支的岛的任务点信息
-         */
-        CheckPointService checkPointService = new CheckPointServiceImpl();
-        String checkPointInfo = checkPointService.getCheckPointInfoByUid(uid);
-        String[] cpNums = checkPointInfo.split(",");
+        String cpNumInfo = (String) session.getAttribute("cpNumInfo");
+        if (cpNumInfo == null) {
+            cpNumInfo = "0,0,0,0,0";
+        }
+        String[] cpNums = cpNumInfo.split(",");
         String cpNum = cpNums[islandId - 1];
 
         /**

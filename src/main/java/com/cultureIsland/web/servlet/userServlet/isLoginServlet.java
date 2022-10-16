@@ -1,5 +1,6 @@
 package com.cultureIsland.web.servlet.userServlet;
 
+import com.cultureIsland.pojo.User;
 import com.cultureIsland.service.UserService;
 import com.cultureIsland.service.impl.UserServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,21 +21,20 @@ public class isLoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession httpSession = req.getSession();
-        Object userId = httpSession.getAttribute("userId");
+        String userId = (String) httpSession.getAttribute("userId");
         /**
          * 将user序列化为json返回给客户端
          */
         ObjectMapper mapper = new ObjectMapper();
         //检测是否为null，如果是null则处于未登录状态，返回个us,其中userid值为0
         String json;
-        String userName = "";
-        if(userId==null){
-            userName = "0";
-            json = mapper.writeValueAsString(userName);
-        }else {
+        User user = new User();
+        if (userId == null) {
+            json = mapper.writeValueAsString(user);
+        } else {
             UserService userService = new UserServiceImpl();
-            userName = userService.getUserNameByUserId((String) userId);
-             json = mapper.writeValueAsString(userName);
+            user = userService.getUserAllInfoByUserId(userId);
+            json = mapper.writeValueAsString(user);
         }
         //设置content-type防止乱码问题
         resp.setContentType("application/json;charset=utf-8");
@@ -43,6 +43,6 @@ public class isLoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.doGet(req,resp);
+        this.doGet(req, resp);
     }
 }

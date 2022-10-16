@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/userCommentArticle")
@@ -58,31 +59,34 @@ public class UserCommentArticleServlet extends HttpServlet {
         /**
          * 处理文章分页内容
          */
-        int limitStart = (currentPage - 1) * 5;
-        int limitEnd = limitStart+5;
-        Page<Article> page = null;
-        ArticleService articleService = new ArticleServiceImpl();
-        List<Article> articleList = null;
-        page.setTotalCount(aidList.size());
-        page.setTotalPage(aidList.size() % 5 == 0 ? aidList.size() / 5 : aidList.size() / 5 + 1);
-        page.setSize(currentPage == page.getTotalPage() ? aidList.size() % 5 : 5);
-        page.setPageSize(5);
-        for (int i = limitStart; i < limitEnd; i++) {
-            Article article = null;
-            try {
-                article = articleService.getUserLikeOrCommentedArticleByAid(aidList.get(i));
-            } catch (ParseException e) {
-                e.printStackTrace();
+        Page<Article> page = new Page<>();
+        int len = aidList.size();
+        page.setTotalCount(len);
+        if (len != 0) {
+            int limitStart = (currentPage - 1) * 5;
+            int limitEnd = limitStart + 5;
+            ArticleService articleService = new ArticleServiceImpl();
+            List<Article> articleList = new ArrayList<>();
+            page.setTotalPage(aidList.size() % 5 == 0 ? aidList.size() / 5 : aidList.size() / 5 + 1);
+            page.setSize(currentPage == page.getTotalPage() ? aidList.size() % 5 : 5);
+            page.setPageSize(5);
+            for (int i = limitStart; i < limitEnd; i++) {
+                Article article = new Article();
+                try {
+                    article = articleService.getUserLikeOrCommentedArticleByAid(aidList.get(i));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                articleList.add(article);
             }
-            articleList.add(article);
-        }
-        page.setList(articleList);
+            page.setList(articleList);
 
-        Page<Comment> page1 = null;
-        for (int i = 0; i < page.getSize(); i++) {
-            int aid = page.getList().get(i).getAid();
-            page1 = commentService.getCommentPageInfo(currentPage1,aid);
-            page.getList().get(i).setCommentPage(page1);
+            Page<Comment> page1 = new Page<>();
+            for (int i = 0; i < page.getSize(); i++) {
+                int aid = page.getList().get(i).getAid();
+                page1 = commentService.getCommentPageInfo(currentPage1, aid);
+                page.getList().get(i).setCommentPage(page1);
+            }
         }
 
         /**

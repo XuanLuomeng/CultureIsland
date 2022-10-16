@@ -34,7 +34,7 @@ public interface UserMapper {
      * @param userId
      * @return
      */
-    int selectUidByUserId(@Param("userId") String userId);
+    String selectUidByUserId(@Param("userId") String userId);
 
     /**
      * 通过用户userId获取所有信息（不包含密码和盐）

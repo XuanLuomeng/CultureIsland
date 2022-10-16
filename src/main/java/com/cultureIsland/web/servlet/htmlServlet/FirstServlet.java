@@ -1,5 +1,7 @@
 package com.cultureIsland.web.servlet.htmlServlet;
 
+import com.cultureIsland.utils.HtmlTransmission;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,25 +17,14 @@ import java.io.PrintWriter;
  * 处理地址
  */
 @WebServlet("/first")
-public class FirstServelt extends HttpServlet {
+public class FirstServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ServletContext servletContext = this.getServletContext();
-        String realPath = servletContext.getRealPath("/html/first.html");
-        System.out.println(realPath);
-        PrintWriter writer = resp.getWriter();
-        InputStream in = new FileInputStream(realPath);
-        byte[] bys = new byte[1024];
-        int len;
-        while ((len = in.read(bys)) != -1) {
-            writer.write(new String(bys, 0, len, "utf-8"));
-        }
-        in.close();
-        writer.close();
+        new HtmlTransmission(req, resp, "/html/first.html");
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.doGet(req,resp);
+        this.doGet(req, resp);
     }
 }

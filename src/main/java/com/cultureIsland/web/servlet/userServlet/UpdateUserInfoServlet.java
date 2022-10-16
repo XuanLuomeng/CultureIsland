@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/updateUserInfo")
@@ -18,12 +19,15 @@ public class UpdateUserInfoServlet extends HttpServlet {
         /**
          * 获取参数
          */
+        HttpSession session = req.getSession();
+        String userId = String.valueOf(session.getAttribute("userId"));
         User user = new User();
         user.setUserName(req.getParameter("userName"));
         user.setTelephone(req.getParameter("telephone"));
         user.setSex(req.getParameter("sex"));
         user.setEmail(req.getParameter("email"));
         user.setBirthday(req.getParameter("birthday"));
+        user.setUserId(userId);
 
         UserService userService = new UserServiceImpl();
         userService.updateUserInfoByUser(user);
