@@ -19,7 +19,7 @@ public interface CommentService {
      *
      * @param comment
      */
-    void insertCommentByUidAndAid(Comment comment);
+    Comment insertCommentByUidAndAid(Comment comment);
 
     /**
      * 通过评论id删除评论

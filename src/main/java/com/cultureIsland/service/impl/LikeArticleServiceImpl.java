@@ -7,14 +7,14 @@ import org.apache.ibatis.session.SqlSession;
 
 public class LikeArticleServiceImpl implements LikeArticleService {
     @Override
-    public boolean isLike(int uid, String aid) {
+    public String isLike(int uid, String aid) {
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
         LikeArticleMapper mapper = sqlSession.getMapper(LikeArticleMapper.class);
         String likeByUidAndAid = mapper.getLikeArrayOrIsLikeByUidAndAid(uid, aid);
-        if (likeByUidAndAid == null && likeByUidAndAid.equals("")) {
-            return false;
+        if (likeByUidAndAid == null) {
+            return "0";
         } else {
-            return true;
+            return "1";
         }
     }
 

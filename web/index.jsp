@@ -10,7 +10,7 @@
   <head>
     <title>$Title$</title>
     <script>
-      window.location.href="/first";
+      window.location.href="/index";
     </script>
   </head>
   <body>

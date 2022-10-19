@@ -6,20 +6,20 @@
     <resultMap id="articleResultMap" type="Article">
         <id column="aid" property="aid"></id>
         <result column="title" property="title"></result>
-        <result column="content" property="content"></result>
+        <result column="acontent" property="content"></result>
         <result column="picture" property="picture"></result>
         <result column="date" property="date"></result>
         <result column="view_count" property="viewCount"></result>
         <result column="id" property="uid"></result>
-        <result column="user_name" property="username"></result>
+        <result column="user_name" property="userName"></result>
         <result column="photo" property="photo"></result>
     </resultMap>
     <select id="getUserArticleByAid" resultMap="articleResultMap">
         select aid,
                title,
-               content,
+               acontent,
                picture,
-               `data`,
+               `date`,
                view_count,
                id,
                user_name,
@@ -27,46 +27,46 @@
         from article,
              `user`
         where a_uid = id and aid=#{aid}
-        order by aid desc;
+        order by aid desc
     </select>
     <select id="getAllArticle" resultMap="articleResultMap">
-        select aid, title, content,picture, `data`,view_count, id, user_name,photo
+        select aid, title, acontent,picture, `date`,view_count, id, user_name,photo
         from article,
         `user`
         where a_uid = id
         <if test="str != null and str != ''">
             and title like '%${str}%'
         </if>
-        order by aid desc;
+        order by aid desc
     </select>
     <select id="getUserArticle" resultMap="articleResultMap">
-        select aid, title, content,picture, `data`,view_count, id, user_name,photo
+        select aid, title, acontent,picture, `date`,view_count, id, user_name,photo
         from article,
         `user`
         where id = #{uid} and a_uid = #{uid}
         <if test="str != null and str != ''">
             and title like '%${str}%'
         </if>
-        order by aid desc;
+        order by aid desc
     </select>
     <insert id="insertArticle">
         insert into article
-        values (null, #{article.title}, #{article.content}, #{article.date}, 0, #{article.uid});
+        values (null, #{article.title}, #{article.content}, #{article.date}, 0, #{article.uid})
     </insert>
     <delete id="deleteArticleByAid">
         delete
         from article
-        where aid = #{aid};
+        where aid = #{aid}
     </delete>
     <update id="updateArticle">
         update article
         set title   = #{article.title},
-            content = #{article.content}
-        where aid = #{article.aid};
+            acontent = #{article.content}
+        where aid = #{article.aid}
     </update>
     <update id="addViewCountByAid">
         update article
         set view_count = view_count + 1
-        where aid = #{aid};
+        where aid = #{aid}
     </update>
 </mapper>

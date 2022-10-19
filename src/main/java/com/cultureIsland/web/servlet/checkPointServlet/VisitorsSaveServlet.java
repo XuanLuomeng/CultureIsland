@@ -30,20 +30,25 @@ public class VisitorsSaveServlet extends HttpServlet {
             cpNumInfo = "0,0,0,0,0";
         }
         String[] cpNums = cpNumInfo.split(",");
-        cpNums[islandId - 1] = cpNum;
-        cpNumInfo = cpNums[0] + ",";
-        int len = cpNums.length - 1;
-        for (int i = 1; i < len; i++) {
-            cpNumInfo += cpNums[i] + ",";
-        }
-        if (len != 0) {
-            cpNumInfo += cpNums[len];
-        }
-
         /**
-         * 重新修改session中闯关信息
+         * 当闯关数大于记录数才进行保存
          */
-        session.setAttribute("cpNumInfo", cpNumInfo);
+        if (Integer.parseInt(cpNum) > Integer.parseInt(cpNums[islandId - 1])) {
+            cpNums[islandId - 1] = cpNum;
+            cpNumInfo = cpNums[0] + ",";
+            int len = cpNums.length - 1;
+            for (int i = 1; i < len; i++) {
+                cpNumInfo += cpNums[i] + ",";
+            }
+            if (len != 0) {
+                cpNumInfo += cpNums[len];
+            }
+
+            /**
+             * 重新修改session中闯关信息
+             */
+            session.setAttribute("cpNumInfo", cpNumInfo);
+        }
     }
 
     @Override

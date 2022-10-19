@@ -13,7 +13,7 @@ import java.io.*;
  * 模拟网址，解决直接访问html文件时的网址不美观以及网址过于固定不可改的问题
  */
 @WebServlet("/loginOrRegister")
-public class LoginOrRegisterServlet extends HttpServlet {
+public class LoginOrRegisterHtmlServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         this.doGet(req, resp);
@@ -21,6 +21,6 @@ public class LoginOrRegisterServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        new HtmlTransmission(req,resp,"/html/register.html");
+        new HtmlTransmission(req,resp,"/html/island/loginOrRegister.html");
     }
 }

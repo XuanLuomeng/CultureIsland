@@ -36,20 +36,22 @@ public class UpdateCheckPointServlet extends HttpServlet {
         CheckPointService checkPointService = new CheckPointServiceImpl();
         String checkPointInfo = checkPointService.getCheckPointInfoByUid(uid);
         String[] cpNums = checkPointInfo.split(",");
-        for (int i = 0; i < cpNums.length; i++) {
-            System.out.println(cpNums[i]);
-        }
-        cpNums[islandId - 1] = cpNum;
-        checkPointInfo = cpNums[0] + ",";
-        int len = cpNums.length - 1;
-        for (int i = 1; i < len; i++) {
-            checkPointInfo += cpNums[i] + ",";
-        }
-        if (len != 0) {
-            checkPointInfo += cpNums[cpNums.length - 1];
-        }
+        /**
+         * 当闯关数大于记录数才进行保存
+         */
+        if (Integer.parseInt(cpNum) > Integer.parseInt(cpNums[islandId - 1])) {
+            cpNums[islandId - 1] = cpNum;
+            checkPointInfo = cpNums[0] + ",";
+            int len = cpNums.length - 1;
+            for (int i = 1; i < len; i++) {
+                checkPointInfo += cpNums[i] + ",";
+            }
+            if (len != 0) {
+                checkPointInfo += cpNums[cpNums.length - 1];
+            }
 
-        checkPointService.updateCheckPointInfoByUid(uid, checkPointInfo);
+            checkPointService.updateCheckPointInfoByUid(uid, checkPointInfo);
+        }
     }
 
     @Override

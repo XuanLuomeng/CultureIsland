@@ -15,7 +15,7 @@ import java.io.IOException;
 /**
  * 修改密码
  */
-@WebServlet("/updatPassword")
+@WebServlet("/updatePassword")
 public class UpdatePasswordServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

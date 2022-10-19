@@ -8,7 +8,7 @@ public interface LikeArticleService {
      * @param aid
      * @return
      */
-    boolean isLike(int uid, String aid);
+    String isLike(int uid, String aid);
 
     /**
      * 获取点赞aid列表

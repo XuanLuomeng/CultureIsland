@@ -7,7 +7,7 @@ import java.util.List;
 @Data
 public class Page<T> {
     /**
-     * totalCount:总文章数
+     * totalCount:总文章/评论数
      * totalPage:总页码
      * currentPage:当前页码(需从前端获取)
      * pageSize:每页显示条数(固定)

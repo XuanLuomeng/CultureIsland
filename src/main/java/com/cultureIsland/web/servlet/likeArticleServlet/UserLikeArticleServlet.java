@@ -60,11 +60,18 @@ public class UserLikeArticleServlet extends HttpServlet {
             /**
              * 获取部分分页内容
              */
-            int limitStart = (currentPage - 1) * 5;
-            int limitEnd = limitStart + 5 < likeList.length - 1 ? limitStart + 5 : likeList.length - 1;
             page.setTotalCount(likeList.length);
             page.setPageSize(5);
-            page.setTotalPage(likeList.length % 5 == 0 ? likeList.length / 5 : likeList.length / 5 + 1);
+            page.setTotalPage((likeList.length - 1) % 5 == 0 ? (likeList.length - 1) / 5 : (likeList.length - 1) / 5 + 1);
+            page.setSize(currentPage == page.getTotalPage() ? (likeList.length - 1) % 5 : 5);
+            int limitStart = (currentPage - 1) * 5;
+            int limitEnd = limitStart + 5 < likeList.length - 1 ? limitStart + 5 : likeList.length - 1;
+            /**
+             * 防止文章不足5篇时数组越界
+             */
+            if (currentPage == page.getTotalPage()) {
+                limitEnd = limitStart + (likeList.length - 1) % 5;
+            }
             ArticleService articleService = new ArticleServiceImpl();
             List<Article> articles = new ArrayList<>();
 
@@ -81,7 +88,7 @@ public class UserLikeArticleServlet extends HttpServlet {
                 articles.add(article);
             }
             page.setList(articles);
-        }else {
+        } else {
             page.setTotalCount(0);
         }
 

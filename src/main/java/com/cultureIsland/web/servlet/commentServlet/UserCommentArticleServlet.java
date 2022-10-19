@@ -63,13 +63,20 @@ public class UserCommentArticleServlet extends HttpServlet {
         int len = aidList.size();
         page.setTotalCount(len);
         if (len != 0) {
-            int limitStart = (currentPage - 1) * 5;
-            int limitEnd = limitStart + 5;
             ArticleService articleService = new ArticleServiceImpl();
             List<Article> articleList = new ArrayList<>();
             page.setTotalPage(aidList.size() % 5 == 0 ? aidList.size() / 5 : aidList.size() / 5 + 1);
             page.setSize(currentPage == page.getTotalPage() ? aidList.size() % 5 : 5);
             page.setPageSize(5);
+            int limitStart = 0;
+            int limitEnd = 0;
+            if (currentPage == page.getTotalPage()) {
+                limitStart = (currentPage - 1) * 5;
+                limitEnd = limitStart + page.getSize();
+            } else {
+                limitStart = (currentPage - 1) * 5;
+                limitEnd = limitStart + 5;
+            }
             for (int i = limitStart; i < limitEnd; i++) {
                 Article article = new Article();
                 try {
@@ -80,7 +87,6 @@ public class UserCommentArticleServlet extends HttpServlet {
                 articleList.add(article);
             }
             page.setList(articleList);
-
             Page<Comment> page1 = new Page<>();
             for (int i = 0; i < page.getSize(); i++) {
                 int aid = page.getList().get(i).getAid();

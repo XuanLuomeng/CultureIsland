@@ -10,7 +10,7 @@
         <result column="c_aid" property="aid"></result>
         <result column="c_uid" property="uid"></result>
         <result column="user_name" property="userName"></result>
-        <result column="photo" property="photo"></result>
+        <result column="photo" property="photoUrl"></result>
     </resultMap>
     <select id="getCommentByAid" resultMap="commentResultMap">
         select cid, ccontent, ctime, c_aid, c_uid, user_name, photo
@@ -18,20 +18,20 @@
              `user`
         where c_uid = id
           and c_aid = #{aid}
-        order by aid desc;
+        order by c_aid desc
     </select>
     <select id="getCommentedAidByUid" resultType="int">
         select distinct c_aid
         from comment
-        where c_uid = #{uid};
+        where c_uid = #{uid}
     </select>
-    <insert id="insertCommentByUidAndAid">
+    <insert id="insertCommentByUidAndAid" useGeneratedKeys="true" keyProperty="cid">
         insert into comment
-        values (null, #{content}, #{date}, #{aid}, #{uid});
+        values (null, #{content}, #{date}, #{aid}, #{uid})
     </insert>
     <delete id="deleteCommentByCid">
         delete
         from comment
-        where cid = #{cid};
+        where cid = #{cid}
     </delete>
 </mapper>

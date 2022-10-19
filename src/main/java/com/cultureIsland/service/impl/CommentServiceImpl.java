@@ -37,10 +37,11 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void insertCommentByUidAndAid(Comment comment) {
+    public Comment insertCommentByUidAndAid(Comment comment) {
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
         CommentMapper mapper = sqlSession.getMapper(CommentMapper.class);
         mapper.insertCommentByUidAndAid(comment);
+        return comment;
     }
 
     @Override

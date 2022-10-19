@@ -14,7 +14,7 @@ public class HtmlTransmission {
         String realPath = servletContext.getRealPath(htmlPath);
         PrintWriter writer = resp.getWriter();
         InputStream in = new FileInputStream(realPath);
-        byte[] bys = new byte[1024];
+        byte[] bys = new byte[2048];
         int len;
         while ((len = in.read(bys)) != -1) {
             writer.write(new String(bys, 0, len, "utf-8"));

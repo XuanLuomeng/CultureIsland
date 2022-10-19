@@ -51,11 +51,11 @@ public class ArticleServiceImpl implements ArticleService {
             LikeArticleService likeArticleService = new LikeArticleServiceImpl();
             for (int len = 0; len < allArticle.size(); len++) {
                 String aid = String.valueOf(allArticle.get(len).getAid());
-                allArticle.get(len).setLike(likeArticleService.isLike(uid, aid));
+                allArticle.get(len).setIsLike(likeArticleService.isLike(uid, aid));
             }
         } else {
             for (int len = 0; len < allArticle.size(); len++) {
-                allArticle.get(len).setLike(false);
+                allArticle.get(len).setIsLike("0");
             }
         }
 
@@ -98,7 +98,7 @@ public class ArticleServiceImpl implements ArticleService {
         LikeArticleService likeArticleService = new LikeArticleServiceImpl();
         for (int len = 0; len < userArticle.size(); len++) {
             String aid = String.valueOf(userArticle.get(len).getAid());
-            userArticle.get(len).setLike(likeArticleService.isLike(uid, aid));
+            userArticle.get(len).setIsLike(likeArticleService.isLike(uid, aid));
         }
 
         page.setList(userArticle);

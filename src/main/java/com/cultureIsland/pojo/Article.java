@@ -26,7 +26,7 @@ public class Article {
     private int viewCount;
     private String userName;
     private String photo;
-    private boolean isLike;
+    private String isLike;
     private int uid;
     private Page<Comment> commentPage;
 }

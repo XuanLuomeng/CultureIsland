@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/UpUserInfo")
-public class UpUserInfoServlet extends HttpServlet {
+@WebServlet("/forum")
+public class ForumHtmlServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        new HtmlTransmission(req, resp, "/html/u-update.html");
+        new HtmlTransmission(req,resp,"/html/forum/forum.html");
     }
 
     @Override

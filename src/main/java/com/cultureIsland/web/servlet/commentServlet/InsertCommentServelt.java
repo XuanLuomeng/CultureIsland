@@ -5,6 +5,7 @@ import com.cultureIsland.service.CommentService;
 import com.cultureIsland.service.UserService;
 import com.cultureIsland.service.impl.CommentServiceImpl;
 import com.cultureIsland.service.impl.UserServiceImpl;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -49,10 +50,19 @@ public class InsertCommentServelt extends HttpServlet {
         comment.setUid(uid);
 
         /**
-         * 保存入数据库
+         * 保存入数据库并获取评论的主键cid
          */
         CommentService commentService = new CommentServiceImpl();
-        commentService.insertCommentByUidAndAid(comment);
+        comment = commentService.insertCommentByUidAndAid(comment);
+
+        /**
+         * 将comment序列化为json返回给客户端，方便实现实时发布
+         */
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(comment);
+        //设置content-type防止乱码问题
+        resp.setContentType("application/json;charset=utf-8");
+        resp.getWriter().write(json);
     }
 
     @Override
