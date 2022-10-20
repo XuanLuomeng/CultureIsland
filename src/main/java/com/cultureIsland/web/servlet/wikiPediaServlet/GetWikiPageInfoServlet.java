@@ -24,6 +24,7 @@ public class GetWikiPageInfoServlet extends HttpServlet {
          */
         String currentPageStr = req.getParameter("currentPage");
         String title = req.getParameter("title");
+        System.out.println(title);
 
         /**
          * 处理参数

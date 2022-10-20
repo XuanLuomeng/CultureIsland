@@ -25,4 +25,11 @@ public interface LikeArticleService {
      * @param likeArray
      */
     void updateLikeArray(int uid, String likeArray);
+
+    /**
+     * 删除点赞列表中的aid信息
+     *
+     * @param aid
+     */
+    void updateLikeArrays(String aid);
 }

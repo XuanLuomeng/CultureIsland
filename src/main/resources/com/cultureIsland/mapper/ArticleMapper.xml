@@ -26,7 +26,8 @@
                photo
         from article,
              `user`
-        where a_uid = id and aid=#{aid}
+        where a_uid = id
+          and aid = #{aid}
         order by aid desc
     </select>
     <select id="getAllArticle" resultMap="articleResultMap">
@@ -51,7 +52,7 @@
     </select>
     <insert id="insertArticle">
         insert into article
-        values (null, #{article.title}, #{article.content}, #{article.date}, 0, #{article.uid})
+        values (null, #{title}, #{content}, null, #{date}, 0, #{uid})
     </insert>
     <delete id="deleteArticleByAid">
         delete
@@ -60,7 +61,7 @@
     </delete>
     <update id="updateArticle">
         update article
-        set title   = #{article.title},
+        set title    = #{article.title},
             acontent = #{article.content}
         where aid = #{article.aid}
     </update>

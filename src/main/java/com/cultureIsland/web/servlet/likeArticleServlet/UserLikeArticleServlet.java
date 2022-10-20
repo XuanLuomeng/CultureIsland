@@ -62,15 +62,16 @@ public class UserLikeArticleServlet extends HttpServlet {
              */
             page.setTotalCount(likeList.length);
             page.setPageSize(5);
-            page.setTotalPage((likeList.length - 1) % 5 == 0 ? (likeList.length - 1) / 5 : (likeList.length - 1) / 5 + 1);
-            page.setSize(currentPage == page.getTotalPage() ? (likeList.length - 1) % 5 : 5);
+            page.setTotalPage((likeList.length) % 5 == 0 ? (likeList.length) / 5 : (likeList.length) / 5 + 1);
+            page.setSize(currentPage == page.getTotalPage() ? (likeList.length) % 5 : 5);
             int limitStart = (currentPage - 1) * 5;
-            int limitEnd = limitStart + 5 < likeList.length - 1 ? limitStart + 5 : likeList.length - 1;
+            int limitEnd = limitStart + 5;
             /**
              * 防止文章不足5篇时数组越界
              */
+            System.out.println(likeList.length + "," + limitStart);
             if (currentPage == page.getTotalPage()) {
-                limitEnd = limitStart + (likeList.length - 1) % 5;
+                limitEnd = limitStart + likeList.length % 5;
             }
             ArticleService articleService = new ArticleServiceImpl();
             List<Article> articles = new ArrayList<>();
@@ -79,13 +80,18 @@ public class UserLikeArticleServlet extends HttpServlet {
              * 获取相对页数的点赞过的文章
              */
             for (int i = limitStart; i < limitEnd; i++) {
-                Article article = null;
-                try {
-                    article = articleService.getUserLikeOrCommentedArticleByAid(Integer.parseInt(likeList[i]));
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                /**
+                 * 防止""空值查询
+                 */
+                if (!likeList[i].equals("")) {
+                    Article article = null;
+                    try {
+                        article = articleService.getUserLikeOrCommentedArticleByAid(Integer.parseInt(likeList[i]));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    articles.add(article);
                 }
-                articles.add(article);
             }
             page.setList(articles);
         } else {

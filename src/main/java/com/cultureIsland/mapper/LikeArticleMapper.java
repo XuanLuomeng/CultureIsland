@@ -1,6 +1,9 @@
 package com.cultureIsland.mapper;
 
+import com.cultureIsland.pojo.LikeArticle;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * 点赞mapper
@@ -20,5 +23,13 @@ public interface LikeArticleMapper {
      * @param uid
      * @param likeArray
      */
-    void insertLikeArticleByUpdateLikeArray(@Param("uid") int uid, @Param("likeArray") String likeArray);
+    void updateLikeArticleByUpdateLikeArray(@Param("uid") int uid, @Param("likeArray") String likeArray);
+
+    /**
+     * 通过模糊查询获取相关的用户信息（便于删除文章时，删除点赞列表记录）
+     *
+     * @param aid
+     * @return
+     */
+    List<LikeArticle> getUidAndListByLike(@Param("aid") String aid);
 }

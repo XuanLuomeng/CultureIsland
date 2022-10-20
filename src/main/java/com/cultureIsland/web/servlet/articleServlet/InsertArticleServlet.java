@@ -29,7 +29,7 @@ public class InsertArticleServlet extends HttpServlet {
         String title = req.getParameter("title");
         String content = req.getParameter("content");
         Date pushdate = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd ");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         /**
          * 获取当前用户uid信息,并用该uid去上传文章
          */
